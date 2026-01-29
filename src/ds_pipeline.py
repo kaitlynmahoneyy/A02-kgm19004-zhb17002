@@ -56,11 +56,12 @@ mlp=MLPRegressor(random_state=42,
 
 mlp.fit(X_train_scaled, y_train)
 
-# Step 4: Add train predictions and plot
+# Step 4: Add train, validation and test predictions and plot
 import numpy as np
 
 y_pred_train = mlp.predict(X_train_scaled)
 y_pred_val   = mlp.predict(X_val_scaled)
+y_pred_test  = mlp.predict(X_test_scaled)
 
 # Plot
 # Scatterplots: predicted vs actual 
@@ -75,9 +76,21 @@ def scatter_with_reference(y_true, y_pred, title):
     plt.title(title)
     plt.tight_layout()
 
+#Plot for train parition
 scatter_with_reference(y_train, y_pred_train, "Predicted vs Actual — Train")
-
-
 plt.savefig("figures/train_actual_vs_predicted.png") # saved train scatterplot image
 plt.show()
 plt.close()
+
+#Plot for validation partition
+scatter_with_reference(y_val, y_pred_val, "Predicted vs Actual — Validation")
+plt.savefig("figures/Validation_actual_vs_predicted.png") # saved validation scatterplot image
+plt.show()
+plt.close()
+
+#Plot for test partition
+scatter_with_reference(y_test, y_pred_test, "Predicted vs Actual — Test")
+plt.savefig("figures/Test_actual_vs_predicted.png") # saved test scatterplot image
+plt.show()
+plt.close()
+
