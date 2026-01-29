@@ -45,9 +45,39 @@ X_test_scaled  = scaler.transform(X_test)
 #Quick check
 print(X_train_scaled)
 
-#Add the model with Early stopping
+#Step 3: Add the model with Early stopping
 from sklearn.neural_network import MLPRegressor
 
 mlp=MLPRegressor(random_state=42,
+                 hidden_layer_sizes=(10,5), # Added hidden layer sizes as it is a requirement
                  max_iter=200,
+                 batch_size=1000, # Added a batch size
                  early_stopping=True)
+
+mlp.fit(X_train_scaled, y_train)
+
+# Step 4: Add train predictions and plot
+import numpy as np
+
+y_pred_train = mlp.predict(X_train_scaled)
+y_pred_val   = mlp.predict(X_val_scaled)
+
+# Plot
+# Scatterplots: predicted vs actual 
+def scatter_with_reference(y_true, y_pred, title):
+    plt.figure(figsize=(6,6))
+    plt.scatter(y_true, y_pred, alpha=0.3, s=10)
+    lo = min(np.min(y_true), np.min(y_pred))
+    hi = max(np.max(y_true), np.max(y_pred))
+    plt.plot([lo, hi], [lo, hi], linewidth=1, color='red')  # reference line
+    plt.xlabel("Actual MedHouseVal")
+    plt.ylabel("Predicted MedHouseVal")
+    plt.title(title)
+    plt.tight_layout()
+
+scatter_with_reference(y_train, y_pred_train, "Predicted vs Actual — Train")
+
+
+plt.savefig("figures/train_actual_vs_predicted.png") # saved train scatterplot image
+plt.show()
+plt.close()
