@@ -44,3 +44,10 @@ X_test_scaled  = scaler.transform(X_test)
 
 #Quick check
 print(X_train_scaled)
+
+#Add the model with Early stopping
+from sklearn.neural_network import MLPRegressor
+
+mlp=MLPRegressor(random_state=42,
+                 max_iter=200,
+                 early_stopping=True)
