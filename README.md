@@ -19,4 +19,4 @@ Output: The script generates four figures saved to the `figures/` folder:
 * `Test_actual_vs_predicted.png` - Model performance on test data.
 
 ## How to run run this script: ##
-Install the requirement txt file first:`pip install -r requirements.txt`, then run the script with following code:`python src/boxplot.py`
+Install the requirement txt file first:`pip install -r requirements.txt`, then run the script with following code:`python src/ds_pipeline.py`
